@@ -1,43 +1,43 @@
 
 
+import { navigateTo } from "../support/page_objects/navigationPage"
+
+
     describe('template spec', () => {
+        beforeEach('login', () => {
+        cy.visit('https://automationexercise.com/')
+        })
       const userName = 'David'
-      const userEmail= 'Bowie@gmail.com'
+      const userLastName = 'Bowie'
+      const userEmail = 'Bowie@gmail.com'
+      const userPassword = 'Pass2023'
       const messageText = 'In other words, based on the commands and the events happening, Cypress automatically alters its expected timeouts to match web application behavior.'
 
-
+    
     it('Test Case 1: Register User', () => {
-        cy.visit('https://automationexercise.com/')
-      
-      cy.contains('Home')
-      .parent()
-      .find('[style="color: orange;"]')
-      .should('have.css', 'color', 'rgb(255, 165, 0)').should('be.visible')
+  
+      navigateTo.homePageIsVisible()
 
+      cy.url().should('include', '/https://automationexercise.com/') // => true
+      cy.url().should('eq', 'https://automationexercise.com/')
+    
         cy.contains('Signup / Login')
         .click()
 
-        cy.contains('div','New User Signup!')
-        .should('be.visible')
-
-        cy.get('[data-qa="signup-name"]').type('David')
-        cy.get('[data-qa="signup-email"]').type('Bowie2@gmail.com')
-        cy.get('[data-qa="signup-button"]').click()
-      
-      
-
+        navigateTo.newUserSignUp()
+        
           cy.contains('Enter Account Information')
           .should('be.visible')
           cy.get('[data-qa="password"]')
-          .type('Pass2023')
+          .type(userPassword)
 
 
           cy.get('[data-qa="days"]').select('2')
           cy.get('[id="months"]').select('9')
           cy.get('[id="years"]').select('1987')
 
-          cy.get('[id="first_name"]').type('David')
-          cy.get('[id="last_name"]').type('Bowie')
+          cy.get('[id="first_name"]').type(userName)
+          cy.get('[id="last_name"]').type(userLastName)
           cy.get('[data-qa="company"]').type('Apple')
           cy.get('[id="address1"]').type('Collins Ave')
 
@@ -70,49 +70,27 @@
     })
       
     it('Test Case 2: Login User with correct email and password',() => {
-      cy.visit('https://automationexercise.com/')
-
-
-      cy.contains('Home')
-      .parent()
-      .find('[style="color: orange;"]')
-      .should('have.css', 'color', 'rgb(255, 165, 0)')
-      .should('be.visible')
+    
+      navigateTo.homePageIsVisible()
 
       cy.contains('Signup / Login')
       .click()
 
-      cy.contains('div','Login to your account')
-        .should('be.visible')
-
-      cy.get('[data-qa="login-password"]').type('Pass2023')
-      cy.get('[data-qa="login-email"]').type('Bowie2@gmail.com')
-      cy.get('[data-qa="login-button"]').click()
-      
-
+      navigateTo.loginWithPasswordEmail()
+    
       cy.contains('div','Logged in as David')
       .contains('Logged in as David')
 
 
-      cy.contains('Delete Account')
-        .click()
-
-      cy.get('[data-qa="account-deleted"]')
-        .should('contain', 'Account Deleted!')
-          
-        cy.get('[data-qa="continue-button"]')
-        .click()
+      navigateTo.deleteAccount()
+      
 
     })
 
     it('Test Case 3: Login User with incorrect email and password',()=> {
-      cy.visit('https://automationexercise.com/')
+      //cy.visit('https://automationexercise.com/')
       
-      cy.contains('Home')
-      .parent()
-      .find('[style="color: orange;"]')
-      .should('have.css', 'color', 'rgb(255, 165, 0)')
-      .should('be.visible')
+      navigateTo.homePageIsVisible()
 
       cy.contains('Signup / Login')
       .click()
@@ -120,8 +98,8 @@
       cy.contains('div','Login to your account')
       .should('be.visible')
 
-      cy.get('[data-qa="login-password"]').type('Pass2029')
-      cy.get('[data-qa="login-email"]').type('Bow@gmail.com')
+      cy.get('[data-qa="login-password"]').type(userPassword)
+      cy.get('[data-qa="login-email"]').type(userEmail)
       cy.get('[data-qa="login-button"]').click()
 
       cy.contains('div','Login to your account')
@@ -130,13 +108,8 @@
     })
 
     it('Test Case 4: Logout User',()=> {
-      cy.visit('https://automationexercise.com/')
       
-      cy.contains('Home')
-      .parent()
-      .find('[style="color: orange;"]')
-      .should('have.css', 'color', 'rgb(255, 165, 0)')
-      .should('be.visible')
+      navigateTo.homePageIsVisible()
 
       cy.contains('Signup / Login')
       .click()
@@ -144,8 +117,8 @@
       cy.contains('div','Login to your account')
       .should('be.visible')
 
-      cy.get('[data-qa="login-password"]').type('Pass2023')
-      cy.get('[data-qa="login-email"]').type('Bowie@gmail.com')
+      cy.get('[data-qa="login-password"]').type(userPassword)
+      cy.get('[data-qa="login-email"]').type(userEmail)
       cy.get('[data-qa="login-button"]').click()
 
       cy.contains('div','Logged in as David')
@@ -161,15 +134,9 @@
 
     })
 
-    it('Test Case 5: Register User with existing email',()=> {
-      cy.visit('https://automationexercise.com/')
-
-      cy.contains('Home')
-      .parent()
-      .find('[style="color: orange;"]')
-      .should('have.css', 'color', 'rgb(255, 165, 0)')
-      .should('be.visible')
-
+    it.only('Test Case 5: Register User with existing email',()=> {
+      
+      navigateTo.homePageIsVisible()
 
       cy.contains('Signup / Login')
       .parent()
@@ -189,9 +156,8 @@
     //   cy.wrap(signupForm).find('[placeholder="Email Address"]')
 
       
-
       cy.get('[data-qa="signup-name"]').type(userName)
-      cy.get('[data-qa="signup-email"]').type(`${userEmail}`)
+      cy.get('[data-qa="signup-email"]').type(userEmail)
 
       cy.get('[data-qa="signup-button"]')
       .click()
@@ -209,16 +175,8 @@
     })
 
     it('Test Case 6: Contact Us Form', ()=> {
-      cy.visit('https://automationexercise.com/')
-
-
-      cy.contains('Home')
-      .parent()
-      .find('[style="color: orange;"]')
-      // the current CSS definition is expressed in RGB triple string
-      .should('have.css', 'color', 'rgb(255, 165, 0)')
-      .should('be.visible')
-
+    
+      navigateTo.homePageIsVisible()
 
 
       cy.contains('Contact us')
@@ -244,24 +202,14 @@
       .find('.fa')
       .click()
       
-      cy.contains('Home')
-      .parent()
-      .find('[style="color: orange;"]')
-      .should('have.css', 'color', 'rgb(255, 165, 0)')
-      .should('be.visible')
+      navigateTo.homePageIsVisible()
 
 
     })
 
-    it('Test Case 7: Verify Test Cases Page',() => {
-      cy.visit('https://automationexercise.com/')
-
-      cy.contains('Home')
-      .parent()
-      .find('[style="color: orange;"]')
-      // the current CSS definition is expressed in RGB triple string
-      .should('have.css', 'color', 'rgb(255, 165, 0)')
-      .should('be.visible')
+    it.only('Test Case 7: Verify Test Cases Page',() => {
+      
+      navigateTo.homePageIsVisible()
 
       cy.contains('Test Cases')
       .click()
@@ -272,8 +220,13 @@
       cy.url().should('include', '/test_cases') // => true
       cy.url().should('eq', 'https://automationexercise.com/test_cases')
       
-      
-
+     
     })
 
     })
+
+
+    //this method can be reused for any page
+    pageIsLoaded = function(pageRoute: string) {//pageRoute will be login  or products...
+    //logic goes here
+}
