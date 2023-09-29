@@ -1,7 +1,7 @@
 
 /// <reference types="cypress" />
 
-import { navigateToCreateAccount } from "../support/page_objects/accountCreation"
+import { accountCreation, navigateToCreateAccount } from "../support/page_objects/accountCreation"
 import { navigateToLogin } from "../support/page_objects/loginPage"
 import { navigateTo } from "../support/page_objects/navigationPage"
 import { navigateToSignUp } from "../support/page_objects/signUpPage"
@@ -19,130 +19,51 @@ import { navigateToSignUp } from "../support/page_objects/signUpPage"
 
     
     it.only('Test Case 1: Register User', () => {
-  
       navigateTo.homePageIsVisible()
-
-      // cy.url().should('include', '/https://automationexercise.com/') // => true
-      // cy.url().should('eq', 'https://automationexercise.com/')
-    
-      //   cy.contains('Signup / Login')
-      //   .click()
-
-        navigateToSignUp.newUserSignUp()
-        
-        navigateToCreateAccount.creatNewAccount()
-          cy.contains('Logout')
-          .should('be.visible')
-
-          //Delete account 
-          // cy.contains('Delete Account')
-          // .click()
-
-          // cy.get('[data-qa="account-deleted"]')
-          // .should('contain', 'Account Deleted!')
-
-          // cy.get('[data-qa="continue-button"]')
-          // .click()
+      navigateToSignUp.newUserSignUp()
+      navigateToCreateAccount.creatNewAccount()
+      navigateToCreateAccount.logoutFromAccount()
+      navigateToCreateAccount.deleteAccount()
+          
     })
       
     it('Test Case 2: Login User with correct email and password',() => {
-    
       navigateTo.homePageIsVisible()
-
-      cy.contains('Signup / Login')
-      .click()
-
+      navigateToCreateAccount.logoutFromAccount()
       navigateToLogin.loginWithPasswordEmail()
-    
-      cy.contains('div','Logged in as David')
-      .contains('Logged in as David')
-
-
+      navigateToLogin.loggedAsUser()
       navigateTo.deleteAccount()
       
 
     })
 
     it('Test Case 3: Login User with incorrect email and password',()=> {
-      //cy.visit('https://automationexercise.com/')
-      
       navigateTo.homePageIsVisible()
-
-      cy.contains('Signup / Login')
-      .click()
-
-      cy.contains('div','Login to your account')
-      .should('be.visible')
+      navigateToSignUp.clickOnSignUpLogin()
+      navigateToLogin.loginToAccountIsVissible
       navigateToLogin.loginWithPasswordEmail()
-      
-      cy.contains('div','Login to your account')
-      .contains('Your email or password is incorrect!')
+      navigateToLogin.errorMsg()
       
     })
 
     it('Test Case 4: Logout User',()=> {
-      
       navigateTo.homePageIsVisible()
-
-      cy.contains('Signup / Login')
-      .click()
-
-      cy.contains('div','Login to your account')
-      .should('be.visible')
-
+      navigateToSignUp.clickOnSignUpLogin()
+      navigateToLogin.loginToAccountIsVissible()
       navigateToLogin.loginWithPasswordEmail()
-
-      cy.contains('div','Logged in as David')
-      .contains('Logged in as David')
-
-      cy.contains('div','Logout')
-      .contains('Logout')
-      .click()
-
-      cy.contains('Signup / Login')
-      .should('exist')
-
-
+      navigateToLogin.loggedAsUser()
+      navigateToCreateAccount.logoutFromAccount()
+      navigateToSignUp.signupLoginExist()
+      
     })
 
     it('Test Case 5: Register User with existing email',()=> {
-      
       navigateTo.homePageIsVisible()
-
-      cy.contains('Signup / Login')
-      .parent()
-      .find('.fa')
-      .click()
-
-    cy.contains('div', 'New User Signup!')
-    .should('be.visible')
-
-    //  cy.contains('div','New User Signup!')  //by attribute name and value 
-    //  .then(signupForm => {
-    //   const nameLabelFirst = signupForm.find('[placeholder="Name"]').text()
-    //   const emailLabelFirst = signupForm.find('[placeholder="Email Address"]').text()
-    //   //expect(nameLabelFirst).to.equal('name')
-      
-    //   cy.wrap(signupForm).find('[placeholder="Name"]')
-    //   cy.wrap(signupForm).find('[placeholder="Email Address"]')
-
-      
-      cy.get('[data-qa="signup-name"]').type(userName)
-      cy.get('[data-qa="signup-email"]').type(userEmail)
-
-      cy.get('[data-qa="signup-button"]')
-      .click()
-
-      cy.contains('div','New User Signup!')
-      .should('contain','Email Address already exist!')
-
-
-    //  })
-
-
-
-
-      
+      navigateToSignUp.clickOnSignUpLogin()
+      navigateToSignUp.userSignupIsVisible()
+      navigateToSignUp.newUserSignUp()
+      navigateToSignUp.errorEmailExist()
+            
     })
 
     it('Test Case 6: Contact Us Form', ()=> {

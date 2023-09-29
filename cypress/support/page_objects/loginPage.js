@@ -8,12 +8,20 @@ export class loginPage{
         cy.get('[data-qa="login-button"]').click()
       }
       
-      loginAccountIsVissible(){
+      loginToAccountIsVissible(){
         cy.contains('div','Login to your account')
           .should('be.visible')
       }
   
-      
+      loggedAsUser(){
+      cy.contains('div','Logged in as David')
+      .contains('Logged in as David')
+      }
+
+      errorMsg(){
+      cy.contains('div','Login to your account')
+      .contains('Your email or password is incorrect!')
+      }
 
 
 

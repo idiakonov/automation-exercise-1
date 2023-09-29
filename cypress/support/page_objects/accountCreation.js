@@ -29,7 +29,10 @@ export class accountCreation{
 
       }
 
-      
+      logoutFromAccount(){
+        cy.contains('Logout')
+        .should('be.visible')
+      }
 
 
 
