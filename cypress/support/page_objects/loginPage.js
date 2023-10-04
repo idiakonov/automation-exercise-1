@@ -1,5 +1,8 @@
 export class loginPage{
 
+
+   clickOnLogin
+
     loginWithPasswordEmail(){
         cy.contains('div','Login to your account')
           .should('be.visible')

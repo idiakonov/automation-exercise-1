@@ -29,8 +29,10 @@ import { navigateToSignUp } from "../support/page_objects/signUpPage"
           
     })
       
-    it('Test Case 2: Login User with correct email and password',() => {
+    it.only('Test Case 2: Login User with correct email and password',() => {
+      
       navigateTo.homePageIsVisible()
+      navigateToSignUp.signupLoginExist()
       navigateToCreateAccount.logoutFromAccount()
       navigateToLogin.loginWithPasswordEmail()
       navigateToLogin.loggedAsUser()
@@ -124,7 +126,7 @@ import { navigateToSignUp } from "../support/page_objects/signUpPage"
      
     })
 
-    it.only('Test Case 8: Simulating Mouseover',()=> {
+    it('Test Case 8: Simulating Mouseover',()=> {
 
       cy.contains('Home')
       .parent()
@@ -167,9 +169,6 @@ import { navigateToSignUp } from "../support/page_objects/signUpPage"
       .trigger('mouseover')
       .should('be.visible')
       .wait(1000)
-
-
-
 
     })
 
