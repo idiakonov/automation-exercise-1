@@ -140,6 +140,12 @@ import { navigateToSignUp } from "../support/page_objects/signUpPage"
       .should('be.visible')
       .wait(1000)
       
+      // //Products // doesn't work. 
+      // cy.contains('.shop-menu ul li a','Products')
+      // .trigger('mouseout')
+      // .should('not.be.visible')
+      
+      
       //Cart 
       cy.contains('.shop-menu ul li a','Cart')
       .trigger('mouseover')
