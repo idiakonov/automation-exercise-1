@@ -1,5 +1,5 @@
 
-/// <reference types="cypress" />
+// <reference types="cypress" />
 
 import { accountCreation, navigateToCreateAccount } from "../support/page_objects/accountCreation"
 import { navigateToLogin } from "../support/page_objects/loginPage"
@@ -9,7 +9,7 @@ import { navigateToSignUp } from "../support/page_objects/signUpPage"
 
     describe('template spec', () => {
         beforeEach('login', () => {
-        cy.visit('https://automationexercise.com/')
+        cy.visit('/')
         })
       const userName = 'David'
       const userLastName = 'Bowie'
@@ -18,12 +18,14 @@ import { navigateToSignUp } from "../support/page_objects/signUpPage"
       const messageText = 'In other words, based on the commands and the events happening, Cypress automatically alters its expected timeouts to match web application behavior.'
 
     
-    it.only('Test Case 1: Register User', () => {
+    it('Test Case 1: Register User', () => {
       navigateTo.homePageIsVisible()
+      navigateToSignUp.signupLoginExist()
+      navigateToLogin.verifyLoginPage()
       navigateToSignUp.newUserSignUp()
       navigateToCreateAccount.creatNewAccount()
       navigateToCreateAccount.logoutFromAccount()
-      navigateToCreateAccount.deleteAccount()
+      // navigateToCreateAccount.deleteAccount()
           
     })
       
@@ -99,7 +101,7 @@ import { navigateToSignUp } from "../support/page_objects/signUpPage"
 
     })
 
-    it.only('Test Case 7: Verify Test Cases Page',() => {
+    it('Test Case 7: Verify Test Cases Page',() => {
       
       navigateTo.homePageIsVisible()
 
@@ -112,13 +114,63 @@ import { navigateToSignUp } from "../support/page_objects/signUpPage"
       cy.url().should('include', '/test_cases') // => true
       cy.url().should('eq', 'https://automationexercise.com/test_cases')
       
+      cy.url().should('include', '/contact_us') // => true
+      cy.url().should('eq', 'https://automationexercise.com/contact_us')
+
+      cy.url().should('include', '/login') // => true
+      cy.url().should('eq', 'https://automationexercise.com/login')
+
+
      
     })
 
+    it.only('Test Case 8: Simulating Mouseover',()=> {
+
+      cy.contains('Home')
+      .parent()
+      .find('[style="color: orange;"]')
+      .trigger('mouseover')
+      .should('have.css', 'color', 'rgb(255, 165, 0)').should('be.visible')
+      
+      //Products
+      cy.contains('.shop-menu ul li a','Products')
+      .trigger('mouseover')
+      .should('be.visible')
+      .wait(1000)
+      
+      //Cart 
+      cy.contains('.shop-menu ul li a','Cart')
+      .trigger('mouseover')
+      .should('be.visible')
+      .wait(1000)
+
+      //Signup / Login 
+      cy.contains('.shop-menu ul li a','Signup / Login')
+      .trigger('mouseover')
+      .should('be.visible')
+      .wait(1000)
+
+      //Test Cases
+      cy.contains('.shop-menu ul li a','Test Cases')
+      .trigger('mouseover')
+      .should('be.visible')
+      .wait(1000)
+
+      //API Testing
+      cy.contains('.shop-menu ul li a','API Testing')
+      .trigger('mouseover')
+      .should('be.visible')
+      .wait(1000)
+      
+      //Contact us
+      cy.contains('.shop-menu ul li a','Contact us')
+      .trigger('mouseover')
+      .should('be.visible')
+      .wait(1000)
+
+
+
+
     })
 
-
-    //this method can be reused for any page
-    pageIsLoaded = function(pageRoute: string) {//pageRoute will be login  or products...
-    //logic goes here
-}
+    })

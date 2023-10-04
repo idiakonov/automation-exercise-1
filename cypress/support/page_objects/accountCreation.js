@@ -1,6 +1,10 @@
-export class accountCreation{
+export class accountCreation {
 
     creatNewAccount(){
+      const userName = 'David'
+      const userLastName = 'Bowie'
+      const userPassword = 'Pass2023'
+      
         cy.contains('Enter Account Information')
           .should('be.visible')
           cy.get('[data-qa="password"]')
@@ -33,10 +37,6 @@ export class accountCreation{
         cy.contains('Logout')
         .should('be.visible')
       }
-
-
-
-
 }
 
 export const navigateToCreateAccount = new accountCreation()

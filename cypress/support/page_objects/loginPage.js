@@ -23,7 +23,10 @@ export class loginPage{
       .contains('Your email or password is incorrect!')
       }
 
-
+      verifyLoginPage(){
+      cy.url().should('include', '/login') // => true
+      cy.url().should('eq', 'https://automationexercise.com/login')
+      }
 
 
 }

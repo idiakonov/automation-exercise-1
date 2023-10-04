@@ -1,6 +1,11 @@
 export class signUpPage{
 
     newUserSignUp(){
+      const userName = 'David'
+      const userEmail = 'Bowie@gmail.com'
+     
+      
+
         cy.contains('div','New User Signup!')
           .should('be.visible')
         cy.get('[data-qa="signup-name"]').type(userName)
@@ -8,18 +13,11 @@ export class signUpPage{
         cy.get('[data-qa="signup-button"]').click()
       }
   
-      clickOnSignUpLogin(){
-        cy.contains('Signup / Login')
-      .click()
-      //Option 2
-      // cy.contains('Signup / Login')
-      // .parent()
-      // .find('.fa')
-      // .click()
-      }
+      
 
       signupLoginExist(){
         cy.contains('Signup / Login')
+        .click()
         .should('exist')
       }
       

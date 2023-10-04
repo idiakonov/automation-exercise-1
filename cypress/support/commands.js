@@ -28,5 +28,12 @@ Cypress.Commands.add('isPageLoaded', (urlPath) => {
     cy.url().should('eq', `https://automationexercise.com/${urlPath}`)
   })
 
+  // Cypress.Commands.add('hover', (colorChange) => {
+  //   // cy.contains('Home')
+  //   //   .parent()
+  //   //   .find('[style="color: orange;"]')
+  //     should('have.css', 'color', 'rgb(255, 165, 0)').should('be.visible')
+  // })
+
   
 
