@@ -29,7 +29,7 @@ import { navigateToSignUp } from "../support/page_objects/signUpPage"
           
     })
       
-    it.only('Test Case 2: Login User with correct email and password',() => {
+    it('Test Case 2: Login User with correct email and password',() => {
       
       navigateTo.homePageIsVisible()
       navigateToSignUp.signupLoginExist()
@@ -126,7 +126,7 @@ import { navigateToSignUp } from "../support/page_objects/signUpPage"
      
     })
 
-    it('Test Case 8: Simulating Mouseover',()=> {
+    it.only('Test Case 8: Simulating Mouseover',()=> {
 
       cy.contains('Home')
       .parent()
