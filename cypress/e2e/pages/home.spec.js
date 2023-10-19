@@ -20,7 +20,6 @@ describe('page header', () => {
 			.then((href)=>{
 				
 				if (!!href.length) {
-					console.log(href, headerLinkUrls.includes(href))
 					expect(headerLinkUrls.includes(href), `link with ${href} should exist`).to.be.true;
 				}
 			})			

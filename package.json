@@ -3,6 +3,6 @@
     "cypress": "^13.2.0"
   },
   "scripts": {
-    "cy:run": "cypress run --browser chromium"
+    "cy:run": "cypress run"
   }
 }
